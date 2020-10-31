@@ -1,0 +1,9 @@
+[submodule "poc-portal-backend"]
+	path = poc-portal-backend
+	url = git@code.electrolab.fr:fabrice/poc-portal-backend.git
+[submodule "poc-portal-frontend"]
+	path = poc-portal-frontend
+	url = git@code.electrolab.fr:fabrice/poc-portal-frontend.git
+[submodule "poc-portal-checkout-frontend"]
+	path = poc-portal-checkout-frontend
+	url = git@code.electrolab.fr:fabrice/poc-portal-checkout-frontend.git
