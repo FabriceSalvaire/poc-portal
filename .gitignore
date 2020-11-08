@@ -3,7 +3,6 @@
 ####################################################################################################
 
 *~
-__pycache__
 du.log
 
 ####################################################################################################
@@ -24,35 +23,15 @@ basic-checkout-frontend/yarn.lock
 #
 ####################################################################################################
 
-backend/app/PASSWORD.txt
-backend/app/dev.env
-backend/app/secret_env.sh
 recapatcha-account.txt
-
-####################################################################################################
-#
-# NOT YED COMMITED !!!
-#
-#####################################################################################################
-
-backend/app/alembic/versions/
-
-backend/app/app/tests/
-backend/app/app/tests_pre_start.py
-# doc/
-.travis.yml
 
 ####################################################################################################
 
 no-git
 
-backend/app/alembic.ini.diff
-backend/app/alembic/env.py.diff
-
-backend/app/test-recaptcha.py
-portal-frontend/doc/
-
 rsync-log.txt
 rsync-vps.sh
+
+tmp.foo
 
 __FIXME__.md
