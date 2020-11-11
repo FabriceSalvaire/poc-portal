@@ -3,7 +3,7 @@
 https://code.electrolab.fr/fabrice/poc-portal/-/tree/master/screenshots
 
 ## OpenAPI Swagger Documentation
-![](https://code.electrolab.fr/fabrice/poc-portal/-/raw/master/screenshots/Capture%20d%E2%80%99%C3%A9cran%202020-10-26%20%C3%A0%2017.49.37-fullpage.png "OpenAPI Swagger Documentation")
+![](doc/screenshots/Capture%20d%E2%80%99%C3%A9cran%202020-10-26%20%C3%A0%2017.49.37-fullpage.png "OpenAPI Swagger Documentation")
 ## Create Donation
 ![](https://code.electrolab.fr/fabrice/poc-portal/-/raw/master/screenshots/Capture%20d%E2%80%99%C3%A9cran%202020-10-26%20%C3%A0%2017.50.06-fullpage.png "Create donation")
 
