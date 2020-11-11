@@ -1,6 +1,6 @@
 # Stripe Notes
 
-[[toc]]
+[[_TOC_]]
 
 ## Test Cards
 
