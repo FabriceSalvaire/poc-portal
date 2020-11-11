@@ -1,6 +1,6 @@
 # Stripe Notes
 
-[[toc]]
+[[_TOC_]]
 
 ## Test Cards
 
@@ -31,7 +31,7 @@ N = (P - 0.25) / (1 + f)
 > stripe events resend evt_1HgYxPBKQhCtA3D9ro1Z9V1b
 ```
 
-```
+```js
 {
   "id": "evt_1HgYxPBKQhCtA3D9ro1Z9V1b",
   "object": "event",
