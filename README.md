@@ -1,5 +1,9 @@
 # Proof of Concept Portal
 
+## Licence
+
+This code is licensed under the [GNU Affero General Public License v3.0](LICENSE-AGPL-3.0.md).
+
 ## Submodules
 
 This repository depends of these submodules:
