@@ -6,4 +6,4 @@
 
 ## Doc
 
-* [Stripe notes](dov/stripe-notes.md)
+* [Stripe notes](doc/stripe-notes.md)
