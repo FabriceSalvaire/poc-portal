@@ -23,6 +23,12 @@ N = (P - 0.25) / (1 + f)
 500                   = + 7.25
 ```
 
+## Python module
+
+* https://github.com/stripe/stripe-python
+  based on `requests`
+* https://stripe.com/docs/api
+
 ## API
 
 ### Resent an event
@@ -81,3 +87,53 @@ N = (P - 0.25) / (1 + f)
   "type": "checkout.session.completed"
 }
 ```
+
+### Simulate a payment
+
+**Note: seems to be undocumented ...**
+
+To simulate a payment:
+
+1. create a checkout session and retrieve its id
+1. then run this fixture with ```stripe fixtures fixture.json```
+   ```js
+   {
+     "_meta": {
+       "template_version": 0
+     },
+     "fixtures": [
+       {
+         "name": "payment_page",
+         "path": "/v1/payment_pages",
+         "method": "get",
+         "params": {
+           "session_id": "cs_test_a0...aC9"   // <== session_id
+         }
+       },
+
+       {
+         "name": "payment_method",
+         "path": "/v1/payment_methods",
+         "method": "post",
+         "params": {
+           "type": "card",
+           "card": {
+             "token": "tok_visa"
+           },
+           "billing_details": {
+             "email": "stripe@example.com"
+           }
+         }
+       },
+
+       {
+         "name": "payment_page_confirm",
+         "path": "/v1/payment_pages/${payment_page:id}/confirm",
+         "method": "post",
+         "params": {
+           "payment_method": "${payment_method:id}"
+         }
+       }
+     ]
+   }
+   ```
