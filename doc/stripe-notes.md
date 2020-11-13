@@ -2,7 +2,22 @@
 
 [[_TOC_]]
 
+## Links
+
+* https://stripe.com
+* https://en.wikipedia.org/wiki/Stripe_(company)
+
+* https://stripe.com/docs
+* https://stripe.com/docs/development/checklist
+
+## Regulations
+
+* https://stripe.com/docs/strong-customer-authentication
+* https://stripe.com/docs/security/guide#validating-pci-compliance
+
 ## Test Cards
+
+* https://stripe.com/docs/testing#cards
 
 | Type               | Issuer    | Payment  | ID                  |
 | ------------------ | --------- | -------- | --------------------|
@@ -23,13 +38,97 @@ N = (P - 0.25) / (1 + f)
 500                   = + 7.25
 ```
 
-## Python module
+## Python Module
 
-* https://github.com/stripe/stripe-python
-  based on `requests`
-* https://stripe.com/docs/api
+* Git repository at https://github.com/stripe/stripe-python
+* https://github.com/dj-stripe/dj-stripe
+* https://github.com/jsbronder/asyncio_stripe but now archived
+
+* Stripe Python module is based on `requests` module.
+* code is Python 2to3
+* it seems they use a code generator, cf. commits "Codegen for openapi ...", but it is not is the source
+* design is ??? cf. https://github.com/stripe/stripe-python/issues
+  "It definitely would have been better if the library had been written this way originally ..."
+* doesn't support asyncio https://github.com/stripe/stripe-python/issues/327
+* **module is undocumented :-(**
+
+Usage:
+```python
+# Set the Secret API Key as a module attribute
+stripe.api_key = SECRET_API_KEY
+
+# POST /v1/checkout/sessions
+session = stripe.checkout.Session.create(**kwargs)
+# or
+session = stripe.checkout.Session.create(api_key=SECRET_API_KEY, **kwargs)
+```
+
+## Stripe Mock
+
+[stripe-mock](https://github.com/stripe/stripe-mock) is a mock HTTP server that responds like the
+real Stripe API. It can be used instead of Stripe's test mode to make test suites integrating with
+Stripe faster and less brittle.
 
 ## API
+
+* [Stripe API Documentation](https://stripe.com/docs/api)
+  https://stripe.com/docs/api?lang=curl to show Curl examples
+* [API Errors](https://stripe.com/docs/api/errors)
+* [Stripe OpenApi](https://github.com/stripe/openapi)
+* Stripe API URL: https://api.stripe.com/v1/...
+* HTTPS is mandatory
+* POST request must be `Content-Type = application/x-www-form-urlencoded` **NOT JSON :-(**
+* but responses are JSON encoded
+* Stripe doesn't have an OpenAPI / Swagger online documentation **:-(**
+
+### Httpie example
+
+Authentication using a basic authentication, login using the API secret key and an empty password:
+```sh
+http -a ${API_SECRET_KEY}: https://api.stripe.com/v1/charges
+
+http -a sk_test_51...UQ: https://api.stripe.com/v1/charges
+```
+
+Authentication using a bearer:
+```sh
+http https://api.stripe.com/v1/charges "Authorization: Bearer ${API_SECRET_KEY}"
+```
+
+Get a checkout session
+```sh
+http -a ${API_SECRET_KEY}: https://api.stripe.com/v1/checkout/sessions/cs_test_a0...Lp
+``
+
+To create a checkout session
+```sh
+http \
+  -a ${API_SECRET_KEY}: \
+  --form \
+  POST https://api.stripe.com/v1/checkout/sessions \
+  "line_items[0][price_data][currency]"=eur \
+  "line_items[0][price_data][unit_amount]"=1000 \
+  "line_items[0][price_data]product_data][name]"="my_product" \
+  "line_items[0][quantity]"=1 \
+  mode=payment \
+  "payment_method_types[0]"=card \
+  success_url="https://example.com/success" \
+  cancel_url="https://example.com/cancel"
+```
+
+```
+POST /v1/checkout/sessions HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Authorization: Basic c2tfdGVzdF81MUhkY3piQktRaEN0QTNEOWpZWHZkSXF4dVVmSGlxRjNZWE4wWWNSRTdJTUtYSlJhS3hVQnJTbG1zQnltWVQ0ZHZlQzhHZUVCTlVUeXV2S1JoTkFpWmtlUDAwQ1VCRzBTVVE6
+Connection: keep-alive
+Content-Length: 351
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Host: api.stripe.com
+User-Agent: HTTPie/2.3.0
+
+line_items%5B0%5D%5Bprice_data%5D%5Bcurrency%5D=eur&line_items%5B0%5D%5Bprice_data%5D%5Bunit_amount%5D=1000&line_items%5B0%5D%5Bprice_data%5Dproduct_data%5D%5Bname%5D=my_product&line_items%5B0%5D%5Bquantity%5D=1&mode=payment&payment_method_types%5B0%5D=card&success_url=https%3A%2F%2Fexample.com%2Fsuccess&cancel_url=https%3A%2F%2Fexample.com%2Fcancel
+```
 
 ### Resent an event
 
@@ -90,7 +189,12 @@ N = (P - 0.25) / (1 + f)
 
 ### Simulate a payment
 
-**Note: seems to be undocumented ...**
+**Note: seems to be ... :-( ... undocumented ... !**
+
+* stripe-go library source has any occurrence of `payment_page`
+* "fixture" occurrences
+  https://github.com/stripe/stripe-go/tree/master/testing/openapi/README.md
+  https://github.com/stripe/stripe-go/blob/master/scripts/test_with_stripe_mock/main.go
 
 To simulate a payment:
 
